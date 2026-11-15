@@ -1,24 +1,9 @@
-# Why there is no front end
+# Why this desk has no front end
 
-Quotiss is a database with a subscription. The tables underneath it are ordinary: a few entities, a few relationships, a handful of workflows you repeat every week. What you pay for is the layer on top that lets people who do not write SQL get at those tables. Screens, filters, dashboards, forms.
+A freight pricing manager repeats the same work: refresh tariffs, check local charges, prepare quotations, review margins and follow up. This base keeps those records in a database and gives a coding agent one CLI to operate it.
 
-That layer used to be the whole product, because talking to a database was hard. It is not hard any more. Open this folder in Claude Code, describe what you want, and it writes the query, runs it, and explains the answer. Ask a question the dashboard never had a chart for and you still get an answer.
+The HTML dashboards and quotations are read-only documents. They are useful on a desktop or as a printout. They do not provide a phone workflow, offline capture, drag-and-drop quoting, customer self-service or live carrier booking. There is no background automation and nothing sends itself.
 
-## What you gain
+Quotiss also supplies carrier connections, email integration and other services. Those are separate from this rate desk. Keep any service your business still needs during a trial. Enterprise DNA can build a team screen and agreed connections as part of a custom version.
 
-- **Better answers.** A dashboard shows what the vendor decided to chart. Here you ask your own question, in your own words, and get it answered against your own data.
-- **No seats.** Everyone who needs to look can look. The bill does not grow with headcount.
-- **Your data in your Postgres.** Plain tables. Back them up, query them from anything, leave any time. There is no export step because there is nothing to leave.
-- **A process that matches you.** When your way of working changes, you add a command. You do not wait for a feature request to clear.
-
-## What you give up
-
-- **A visual board.** Stages are a table you ask about, not cards you drag.
-- **A phone app.** It runs where Claude Code runs.
-- **A vendor help desk.** This is open source. Enterprise DNA supports the installed version for businesses that want someone to call.
-
-## Who this fits
-
-Small teams who already use Claude Code, or who would rather learn to ask than learn another interface. If your team needs a screen to look at all day, keep Quotiss. If you need the answers more than the screens, this is cheaper, faster and yours.
-
-Installed and run for you: https://enterprisedna.co/omni/instead-of/quotiss
+An operator can ask a new question across tariffs and quotations, keep the price evidence and change a report without waiting for a vendor to add it. The benefit is control of this working record, not a claim to replace every feature in the incumbent subscription.

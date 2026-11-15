@@ -1,11 +1,43 @@
 [
   {
-    "name": "example",
-    "title": "TODO(author): the first document this industry must produce",
-    "for_each": "select gen_random_uuid() as id, 'Example' as name",
-    "file": "name",
+    "name": "freight-quote",
+    "title": "Freight quotation for review",
+    "for_each": "select id,code from quotes order by code",
+    "file": "code",
     "sections": [
-      { "title": "Details", "sql": "select 'replace me' as item, $1::text as record_id" }
+      {
+        "title": "Quotation",
+        "layout": "record",
+        "sql": "select code,client,status,valid_until,sail_date,currency,terms from quote_totals where id=$1"
+      },
+      {
+        "title": "Services",
+        "sql": "select description,quantity from quote_lines where quote_id=$1 order by created_at,id"
+      },
+      {
+        "title": "Price",
+        "layout": "record",
+        "sql": "select currency,net_cents,tax_cents,total_cents from quote_totals where id=$1",
+        "note": "Review validity, charge coverage and tax treatment before use. Nothing has been sent."
+      }
+    ]
+  },
+  {
+    "name": "pricing-worksheet",
+    "title": "Internal pricing worksheet",
+    "for_each": "select id,code from quotes order by code",
+    "file": "code",
+    "sections": [
+      {
+        "title": "Margin and scope",
+        "layout": "record",
+        "sql": "select code,client,owner,status,currency,buy_cents,net_cents,profit_cents,terms from quote_totals where id=$1"
+      },
+      {
+        "title": "Cost evidence",
+        "sql": "select description,quantity,unit_buy_cents,source_valid_to,source_ref from quote_lines where quote_id=$1 order by created_at,id",
+        "note": "Internal only. Do not send this working paper to the customer."
+      }
     ]
   }
 ]

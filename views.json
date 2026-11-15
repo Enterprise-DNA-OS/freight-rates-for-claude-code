@@ -1,13 +1,37 @@
 [
   {
     "name": "week",
-    "title": "This week",
-    "subtitle": "Freight Rates for Claude Code: what needs attention, rendered by npm run view",
+    "title": "Freight pricing week",
+    "subtitle": "Fictional operator desk when using demo data",
     "sections": [
       {
-        "title": "Needs attention",
-        "note": "TODO(author): point this at the industry's attention view (overdue, stuck, quiet).",
-        "sql": "select 'replace me' as item, 'TODO(author)' as why"
+        "title": "Rate expiry and follow-ups",
+        "sql": "select * from attention order by due,code"
+      },
+      {
+        "title": "Quote review",
+        "sql": "select * from quote_review order by code"
+      }
+    ]
+  },
+  {
+    "name": "rates",
+    "title": "Carrier tariff book",
+    "sections": [
+      {
+        "title": "Available and expired tariffs",
+        "sql": "select * from rate_book order by origin,destination,equipment,valid_to"
+      }
+    ]
+  },
+  {
+    "name": "compliance",
+    "title": "Quotation evidence review",
+    "sections": [
+      {
+        "title": "Records needing review",
+        "sql": "select * from compliance_findings order by code,rule",
+        "note": "Record checks support human review. They do not certify compliance."
       }
     ]
   }

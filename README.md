@@ -1,115 +1,92 @@
-<h1 align="center">Freight Rates for Claude Code</h1>
+# Freight Rates for Claude Code
 
-<p align="center">
-  <strong>The open-source freight rate desk that is just a database and Claude Code.</strong>
-</p>
+Carrier tariffs, local charges, quotation margins and follow-ups in a database you own. A free freight pricing desk for the record-based part of Quotiss.
 
-<p align="center">
-  Created by <a href="https://www.enterprisedna.co"><strong>Enterprise DNA</strong></a>. Free and open source. Works with Claude Code, Codex, OpenCode or Cursor.
-</p>
+## Three ways to use it
 
-<!-- three-doors -->
-<table align="center">
-  <tr>
-    <td align="center"><strong>Do it yourself</strong><br/>Clone it, run it, own it. Free, MIT.<br/><a href="#quick-start">Quick start</a></td>
-    <td align="center"><strong>We customise it</strong><br/>Your fields, your rules, your Quotiss data brought across.<br/><a href="https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=quotiss">Book a call</a></td>
-    <td align="center"><strong>We run it for you</strong><br/>Installed, connected and operated inside Omni. Setup fee, then a retainer.<br/><a href="https://enterprisedna.co/omni/instead-of/quotiss?utm_source=github&utm_medium=readme&utm_campaign=quotiss">How it works</a></td>
-  </tr>
-</table>
+**Do it yourself.** Free under the MIT licence. Run the demo, review your rate export and use Claude Code, Codex, OpenCode or Cursor to work with the records.
 
-<p align="center">
-  <a href="#what-is-this">What is this</a> &bull;
-  <a href="#why-no-front-end">Why no front end</a> &bull;
-  <a href="#quick-start">Quick start</a> &bull;
-  <a href="#the-commands">Commands</a> &bull;
-  <a href="#instead-of-quotiss">Instead of Quotiss</a> &bull;
-  <a href="#want-it-installed-and-run-for-you">Installed for you</a> &bull;
-  <a href="#license">License</a>
-</p>
+**We customise it.** Enterprise DNA brings your Quotiss records across and builds your fields, price rules and documents. A web front end, different stack and carrier connections can be part of your version. One setup fee, then a retainer.
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Node-20+-339933?style=flat-square" alt="Node 20+" />
-  <img src="https://img.shields.io/badge/PostgreSQL-any-336791?style=flat-square" alt="PostgreSQL" />
-  <img src="https://img.shields.io/badge/PGlite-embedded-3ecf8e?style=flat-square" alt="PGlite" />
-  <img src="https://img.shields.io/badge/License-MIT-yellow?style=flat-square" alt="MIT License" />
-</p>
+**We run it for you.** Omni by Enterprise DNA installs, connects and operates your version. One setup fee, then a monthly retainer. [Book a call](https://enterprisedna.co/omni/book?offer=replace-software&utm_campaign=quotiss&utm_medium=github).
 
----
-
-## What is this
-
-Freight Rates for Claude Code does the job you pay Quotiss for, as a Postgres database and a set of agent commands. There is no web front end. You open the folder in [Claude Code](https://claude.com/claude-code) (or Codex, OpenCode, Cursor: see `AGENTS.md`) and ask for what you want in plain language. It runs the right query, and it can answer questions the Quotiss dashboard cannot.
-
-<!-- TODO(author): the annual bill. One sentence: what a 10 to 50 person business typically pays Quotiss per year, all in, with a source. -->
-
-Want the same thing with a web front end, or built on a different stack? That is a customisation, and it is exactly what Enterprise DNA does: [book a call](https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=quotiss).
-
-<!-- TODO(author): two or three sentences on what this specific product covers and who it is for. -->
-
-## Why no front end
-
-- The front end was only ever there because the database was hard to talk to. That is no longer true.
-- Your data sits in plain Postgres tables you own. Any tool can read them. No export, no lock-in.
-- No seats, no tiers, no add-ons. Read [docs/why-no-front-end.md](docs/why-no-front-end.md) for the honest trade-offs too.
+Quotiss lists Plus at US$99 per user per month with a minimum of 20 active accounts. Its [pricing page](https://quotiss.com/pricing/) also lists an annual prepayment discount. Checked 15 November 2026. The selection estimate is a list-price scenario, not a verified customer invoice.
 
 ## Quick start
 
-Sixty seconds, no database install (an embedded Postgres runs inside Node):
+Node 22.15 or newer on Windows, Linux or macOS. No database server is needed for the local demo.
 
 ```bash
-git clone https://github.com/Enterprise-DNA-OS/freight-rates-for-claude-code.git
-cd freight-rates-for-claude-code
 npm install
+npm test
 npm run demo
 ```
 
-Then open the folder in Claude Code and type a slash command. <!-- TODO(author): name the first command to try. -->
+The demo always creates an isolated local database and reports under .data. It ignores DATABASE_URL. For a persistent fictional working copy:
 
-### Use it with your own Postgres or Supabase
-
-Copy `.env.example` to `.env`, set `DATABASE_URL`, then `npm run migrate`. Same commands, shared data, no per-seat fee.
-
-## The commands
-
-<!-- TODO(author): a table of the slash commands in .claude/commands and what each one does. -->
-
-| Command | What it does |
-|---|---|
-| `/...` | ... |
-
-## Instead of Quotiss
-
-<!-- TODO(author): how to bring data across from Quotiss; link docs/replace-quotiss.md -->
-
-## Architecture
-
-```
-freight-rates-for-claude-code/
-  CLAUDE.md                 how the operator wants this run (routing table + house rules)
-  AGENTS.md                 the same, for Codex / OpenCode / Cursor / Gemini CLI
-  .claude/commands/         the slash commands
-  scripts/                  the CLI the commands drive
-  scripts/lib/db.mjs        one adapter: DATABASE_URL (pg) or embedded PGlite
-  supabase/migrations/      plain SQL schema
-  supabase/seed.sql         demo data
-  docs/                     the thesis and the migration guide
+```bash
+npm run migrate
+npm run seed
+npm run freight -- weekly-review
+npm run view
+npm run docs
 ```
 
-## Built for coding agents
+Start a real database with migrate only. Never seed it. DATA_DIR selects the local embedded database. DATABASE_URL selects PostgreSQL 15 or newer; remote certificates are verified. OUTPUT_DIR selects where private reports, drafts and exports go.
 
-The database, CLI and command recipes work with Claude Code, Codex, OpenCode or Cursor. Ask your coding agent for a new command and have it implement and test the change against the same records.
+## What ships
 
-## Contributing
+29 slash commands, three read-only HTML dashboards and two document types. Edit brand.json to put your business name, logo and colours on the paperwork. The customer quotation shows scope and selling totals. The internal pricing worksheet shows cost evidence and profit; do not send it to customers.
 
-Issues and pull requests are welcome. Keep the shape: plain SQL, a small CLI, a slash command per recurring job, no front end.
+FCL tariffs are inclusive of freight surcharges in the documented Quotiss export. Local charges are separate, selected explicitly for each quote. Quantities are whole containers. Rates and local charges must share one currency; the CLI refuses mixed currencies. It does not silently convert money. Supported currencies are USD, NZD, AUD, EUR, GBP, SGD and CAD.
 
-## Want it installed and run for you?
+Markup applies to the combined cost. Gross margin is profit divided by net selling price. Money is stored in integer minor units. Net price is rounded once after markup; tax is rounded once on that net price. A quote records an explicit tax rate and scope review. The software does not decide the tax treatment of international freight.
 
-Enterprise DNA installs Freight Rates for Claude Code for your business, migrates your Quotiss data, connects it to the rest of your tools, and runs it for you as part of **Omni**, our managed Command Center. One setup fee, then a monthly retainer.
+Approving a quotation requires complete scope, charge coverage, valid source dates and an evidence reference. Approved terms and price lines are frozen. Changed imported tariffs create a new rate version and flag affected open quotes. Recording an acceptance or loss changes a local record; no command sends a quote, books freight or moves money.
 
-- Book a call: [enterprisedna.co/omni/book](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=quotiss)
-- Read more: [enterprisedna.co/omni/instead-of/quotiss](https://enterprisedna.co/omni/instead-of/quotiss?utm_source=github&utm_medium=readme&utm_campaign=quotiss)
+## Bring your Quotiss tariffs
 
-## License
+```bash
+npm run freight -- import quotiss ./imports/rates.xlsx --workspace=our-forwarder --direction=import --currency=USD --dry-run --json
+npm run freight -- import quotiss ./imports/rates.xlsx --workspace=our-forwarder --direction=import --currency=USD --actor=Operator
+npm run freight -- history
+npm run freight -- export
+```
 
-MIT. Copyright (c) 2026 Enterprise DNA.
+This directly reads the FCL matrix structure shown in the vendor help page. Set direction to match Create Import Excel or Create Export Excel. Confirm the currency for every contract in the workbook first; split mixed-currency files. [The switch guide](docs/replace-quotiss.md) covers the layout, normalised CSV option, retained comments, unsupported formats and reconciliation. A saved supported export imports in one command. No customer workbook was available for this build, so test your actual export before committing to a switch.
+
+## Ten questions to ask today
+
+`npm run freight -- insights` answers these from the demo. They join tariff, quotation and follow-up records; they are not verified claims about what Quotiss custom reporting cannot do.
+
+1. Which overdue quotes rely on a tariff expiring within two weeks?
+2. Which drafts have less than a ten percent margin?
+3. Which quotations outlive their source tariffs?
+4. Which active lanes have only one current tariff?
+5. Which customers need a retention review and have open quotes?
+6. Which owners have overdue follow-ups, split by currency?
+7. Which draft quotes lack an explicit charge-coverage review?
+8. Which open quotations use a superseded rate?
+9. Which lanes have local charges in another currency?
+10. Which clients have more than one open quote currency?
+
+## Your first hour: ten things to ask for
+
+1. Show tariffs expiring before the end of the month.
+2. Find quotes whose source price expires before sailing.
+3. Show the overdue follow-ups by owner.
+4. Explain the difference between markup and margin on Q-101.
+5. Find local charges in a different currency from the freight.
+6. Draft the Monday pricing meeting without sending it.
+7. Preview our exported tariffs and compare the rates with the workbook.
+8. Put our business name and logo on the quotation.
+9. Use /customise to add our customer purchase-order reference.
+10. Use /new-view to show expiring tariffs by carrier.
+
+## Operating limits
+
+This is a trusted operator workspace, not a hosted multi-user service. Actor labels record who an operator says acted. They are not authentication. Database owners can administer the records and audit history. Tables have row security enabled and no grants to public roles. Configure identity, access roles, backups and retention before shared use.
+
+There is no live carrier feed, booking connection, customer portal, CRM sync, email delivery, air-weight rating, LCL minimum calculation, customs filing or tariff marketplace in the free base. Keep those services while testing the record desk. A custom version can connect the systems you keep.
+
+Read [CLI syntax](docs/cli.md), [compliance checks](docs/compliance.md), [research](docs/research.md) and [the screen boundaries](docs/why-no-front-end.md). Tests exercise both good and refused writes, price arithmetic, CSV and XLSX import, retained source history and report generation. The GitHub workflow runs Windows, Linux and PostgreSQL checks. A configured workflow is not itself a passing run.

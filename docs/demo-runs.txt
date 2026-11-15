@@ -1,0 +1,21 @@
+node scripts/freight.mjs rate-expiry
+  code  carrier       lane                  equipment  expires     days_left
+  ----  ------------  --------------------  ---------  ----------  ---------
+  R-3   Demo Pacific  Sydney to Auckland    20GP       2026-11-10  -5
+  R-1   Demo Ocean    Shanghai to Auckland  40HC       2026-11-25  10
+
+node scripts/freight.mjs margin-review
+  code   client             buy_amount   net_amount   profit_amount  margin_percent
+  -----  -----------------  -----------  -----------  -------------  --------------
+  Q-103  Southern Parts     AUD 900.00   AUD 990.00   AUD 90.00      9.09
+  Q-102  Harbour Hardware   USD 1800.00  USD 1890.00  USD 90.00      4.76
+  Q-101  Harbour Homewares  USD 4180.00  USD 5016.00  USD 836.00     16.67
+
+node scripts/freight.mjs compliance
+  kind    code   rule              finding
+  ------  -----  ----------------  -----------------------------------------------------------------
+  client  C-2    RETENTION_REVIEW  Set or revisit lawful purpose and retention decision
+  quote   Q-102  PRICE_SCOPE       Record terms and confirm all applicable charges and tax treatment
+  quote   Q-102  SOURCE_VALIDITY   Source rate does not cover sailing and quote validity
+  quote   Q-103  PRICE_SCOPE       Record terms and confirm all applicable charges and tax treatment
+  quote   Q-103  SOURCE_VALIDITY   Source rate does not cover sailing and quote validity

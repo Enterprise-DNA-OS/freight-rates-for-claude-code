@@ -7,6 +7,7 @@ import { pathToFileURL } from 'node:url';
 import { getDb, REPO_ROOT } from './lib/db.mjs';
 
 export async function seed(db) {
+  if ((await db.query("select id from clients where id='10000000-0000-0000-0000-000000000001'")).length) return;
   await db.exec('BEGIN');
   try {
     await db.exec(readFileSync(path.join(REPO_ROOT, 'supabase', 'seed.sql'), 'utf8'));

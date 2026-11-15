@@ -1,0 +1,2 @@
+contract,carrier,origin,destination,equipment,currency,amount,valid_from,valid_to,internal_note
+Example Asia contract,Demo Ocean,Shanghai,Auckland,40HC,USD,1800.00,2026-11-01,2026-11-30,"Fictional normalised example, freight surcharges included"
